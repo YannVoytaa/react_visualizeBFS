@@ -3,19 +3,24 @@
   width:25px;
   display: inline-block;
   outline: 1px solid black;
-}
-
-.start{
-  background:green;
-}
-
-.end{
-  background:red;
+  transition: 1s;
 }
 
 .node-visit{
-  background: blue;
+  background: #007070;
 }
 .node-shortest{
-  background: yellow;
+  background: #F0EB6C;
+}
+
+.wall{
+  background: black;
+}
+
+.start{
+  background:#2A5900;
+}
+
+.end{
+  background:#CF0404;
 }
