@@ -1,0 +1,21 @@
+.node{
+  height:25px;
+  width:25px;
+  display: inline-block;
+  outline: 1px solid black;
+}
+
+.start{
+  background:green;
+}
+
+.end{
+  background:red;
+}
+
+.node-visit{
+  background: blue;
+}
+.node-shortest{
+  background: yellow;
+}
