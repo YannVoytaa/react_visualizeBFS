@@ -42,7 +42,7 @@ export default class FindPath extends Component {
     let grid=this.state.nodes;
     queue.push(start_row,start_col);
     let cnt=0;
-    while (queue.length>0){
+    while (queue.length>0&&grid[end_row][end_col].vis==false){
       let a=queue.shift();
       let b=queue.shift();
       //console.log(a,b);
@@ -80,9 +80,9 @@ export default class FindPath extends Component {
           document.getElementById(`node-${x}-${y}`).classList.add('node-shortest');
           //setTimeout(()=>document.getElementById(`node-${x}-${y}`).className='node node-shortest',20*cnt);
           cnt++;
-          if(x-1>=0&&grid[x][y].dist==grid[x-1][y].dist+1)x--;
-          else if(y-1>=0&&grid[x][y].dist==grid[x][y-1].dist+1)y--;
-          else if(x+1<grid.length&&grid[x][y].dist==grid[x+1][y].dist+1)x++;
+          if(x-1>=0&&grid[x][y].dist==grid[x-1][y].dist+1&&grid[x-1][y].vis)x--;
+          else if(y-1>=0&&grid[x][y].dist==grid[x][y-1].dist+1&&grid[x][y-1].vis)y--;
+          else if(x+1<grid.length&&grid[x][y].dist==grid[x+1][y].dist+1&&grid[x+1][y].vis)x++;
           else y++;
         }
       },5*cnt);
@@ -139,9 +139,15 @@ export default class FindPath extends Component {
       }
     }
     else nodes=this.state.nodes;
-    this.componentDidMount();
     if(leaveWalls){
-      let grid=this.state.nodes;
+      const grid=[];
+      for(let i=0;i<25;i++){
+        const row=[];
+        for(let j=0;j<50;j++){
+          row.push(create(i,j));
+        }
+        grid.push(row);
+      }
       for(let i=0;i<25;i++){
         for(let j=0;j<50;j++){
           grid[i][j].wall=nodes[i][j].wall;
@@ -149,6 +155,7 @@ export default class FindPath extends Component {
       }
       this.setState({nodes:grid});
     }
+    else this.componentDidMount();
   }
   render(){
     const nodes=this.state.nodes;
