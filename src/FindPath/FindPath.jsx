@@ -3,7 +3,7 @@ import Node from './Node/Node'
 
 import './FindPath.css'
 
-const start_row=5,start_col=5,end_row=19,end_col=43;
+let start_row=5,start_col=5,end_row=19,end_col=43;
 const create= (row,col)=>{
   return{
     row,
@@ -22,6 +22,7 @@ export default class FindPath extends Component {
     this.state={
       nodes: [],
       clicked:false,
+      holdsStart:false,
     };
   }
 
@@ -93,13 +94,30 @@ export default class FindPath extends Component {
   }
   click(row,col){
     let grid=this.state.nodes;
-    grid[row][col].wall=true;
-    this.setState({nodes:grid,clicked:true});
+    if(this.state.holdsStart){
+      let nodes=document.getElementsByClassName('start');
+      while(nodes[0])nodes[0].classList.remove('start');
+      document.getElementById(`node-${row}-${col}`).classList.add('start');
+    }
+    else if(grid[row][col].start==false){
+      grid[row][col].wall=!grid[row][col].wall;
+      this.setState({nodes:grid,clicked:true});
+    }
+    else {
+      grid[row][col].start=false;
+      this.setState({holdsStart:true,clicked:true,nodes:grid});
+    }
   }
-  unclick(){
-    this.setState({clicked:false});
+  unclick(row,col){
+    if(this.state.holdsStart){
+      let grid=this.state.nodes;
+      grid[row][col].start=true;
+      start_row=row;start_col=col;
+      this.setState({clicked:false,nodes:grid,holdsStart:false});
+    }
+    else this.setState({clicked:false});
   }
-  reset(){
+  reset(leaveWalls){
     /*for(let i=0;i<25;i++){
       for(let j=0;j<50;j++){
         document.getElementById(`node-${i}-${j}`).className='node';
@@ -114,18 +132,31 @@ export default class FindPath extends Component {
     while(nodes[0]){
       nodes[0].classList.remove('node-shortest')
     }
-    nodes=document.getElementsByClassName('wall');
-    while(nodes[0]){
-      nodes[0].classList.remove('wall')
+    if(!leaveWalls){
+      nodes=document.getElementsByClassName('wall');
+      while(nodes[0]){
+        nodes[0].classList.remove('wall')
+      }
     }
+    else nodes=this.state.nodes;
     this.componentDidMount();
+    if(leaveWalls){
+      let grid=this.state.nodes;
+      for(let i=0;i<25;i++){
+        for(let j=0;j<50;j++){
+          grid[i][j].wall=nodes[i][j].wall;
+        }
+      }
+      this.setState({nodes:grid});
+    }
   }
   render(){
     const nodes=this.state.nodes;
     return (
-      <div onMouseUp={()=>this.unclick()}>
+      <div>
       <button onClick={()=>this.visualize()}>Visualize Bfs</button>
-      <button onClick={()=>this.reset()}>Reset</button>
+      <button onClick={()=>this.reset(false)}>Reset</button>
+      <button onClick={()=>this.reset(true)}>Reset but leave walls</button>
       <div className='grid'>
         {nodes.map((row,rowId)=>{
 
@@ -141,7 +172,7 @@ export default class FindPath extends Component {
                            vis={vis}
                            wall={wall}
                            onMouseDown={(row,col)=>this.click(row,col)}
-                           onMouseUp={()=>this.unclick()}
+                           onMouseUp={(row,col)=>this.unclick(row,col)}
                            clicked={this.state.clicked}></Node>
             })}
           </div>

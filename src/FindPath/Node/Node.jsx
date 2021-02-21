@@ -16,7 +16,7 @@ export default class Node extends Component {
            className={`node ${classGroup} ${classGroup2}`}
            id={`node-${this.props.row}-${this.props.col}`}
            onMouseEnter={()=>{if(this.props.clicked)this.props.onMouseDown(this.props.row,this.props.col)}}
-           onMouseUp={()=>this.props.onMouseUp()}>
+           onMouseUp={()=>this.props.onMouseUp(this.props.row,this.props.col)}>
       </div>
     )
   }

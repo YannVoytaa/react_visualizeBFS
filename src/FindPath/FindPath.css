@@ -1,5 +1,6 @@
 .row {
   display: block;
+  height:25px;
 }
 .grid{
   margin:100px auto;
