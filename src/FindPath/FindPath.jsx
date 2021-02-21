@@ -23,6 +23,7 @@ export default class FindPath extends Component {
       nodes: [],
       clicked:false,
       holdsStart:false,
+      done:false,
     };
   }
 
@@ -38,6 +39,7 @@ export default class FindPath extends Component {
     this.setState({nodes:nodes});
   }
   visualize(){
+    this.setState({done:true});
     let queue=[];
     let grid=this.state.nodes;
     queue.push(start_row,start_col);
@@ -72,11 +74,9 @@ export default class FindPath extends Component {
     }
     let x=end_row,y=end_col;
     if(grid[x][y].vis==false)return ;
-    let resq=[];
     setTimeout(()=>{
         while(x!=start_row||y!=start_col){
           //console.log(cnt);
-          resq.push(x,y);
           document.getElementById(`node-${x}-${y}`).classList.add('node-shortest');
           //setTimeout(()=>document.getElementById(`node-${x}-${y}`).className='node node-shortest',20*cnt);
           cnt++;
@@ -93,6 +93,7 @@ export default class FindPath extends Component {
     },5*cnt);*/
   }
   click(row,col){
+    if (this.state.done)return ;
     let grid=this.state.nodes;
     if(this.state.holdsStart){
       let nodes=document.getElementsByClassName('start');
@@ -109,6 +110,7 @@ export default class FindPath extends Component {
     }
   }
   unclick(row,col){
+    if (this.state.done)return ;
     if(this.state.holdsStart){
       let grid=this.state.nodes;
       grid[row][col].start=true;
@@ -156,6 +158,7 @@ export default class FindPath extends Component {
       this.setState({nodes:grid});
     }
     else this.componentDidMount();
+    this.setState({done:false});
   }
   render(){
     const nodes=this.state.nodes;
