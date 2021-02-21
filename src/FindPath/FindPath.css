@@ -5,3 +5,23 @@
 .grid{
   margin:100px auto;
 }
+
+.button{
+  border: 0px;
+  width:300px;
+  height:40px;
+  padding: 0px;
+  margin:30px 30px;
+  color:white;
+  font-size: 24px;
+}
+
+#btn_res{
+  background: red;
+}
+#btn_vis{
+  background: green;
+}
+#btn_soft_res{
+  background: orange;
+}

@@ -164,9 +164,9 @@ export default class FindPath extends Component {
     const nodes=this.state.nodes;
     return (
       <div>
-      <button onClick={()=>this.visualize()}>Visualize Bfs</button>
-      <button onClick={()=>this.reset(false)}>Reset</button>
-      <button onClick={()=>this.reset(true)}>Reset but leave walls</button>
+      <button className='button' id='btn_vis' onClick={()=>this.visualize()}>Visualize Bfs</button>
+      <button className='button' id='btn_res' onClick={()=>this.reset(false)}>Reset</button>
+      <button className='button' id='btn_soft_res' onClick={()=>this.reset(true)}>Reset but leave walls</button>
       <div className='grid'>
         {nodes.map((row,rowId)=>{
 
