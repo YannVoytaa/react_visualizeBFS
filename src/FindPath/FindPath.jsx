@@ -167,6 +167,13 @@ export default class FindPath extends Component {
       <button className='button' id='btn_vis' onClick={()=>this.visualize()}>Visualize Bfs</button>
       <button className='button' id='btn_res' onClick={()=>this.reset(false)}>Reset</button>
       <button className='button' id='btn_soft_res' onClick={()=>this.reset(true)}>Reset but leave walls</button>
+      <h1>Tips</h1>
+      <ul>
+        <li>Press and hold mouse over the grid to add/remove walls</li>
+        <li>Press and hold mouse over the starting (green) point to move it</li>
+        <li>Pressing 'visualize' button shows the order of visiting the nodes</li>
+        <li>Pressing 'reset' allows you to simulate the process again</li>
+      </ul>
       <div className='grid'>
         {nodes.map((row,rowId)=>{
 

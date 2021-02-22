@@ -3,7 +3,7 @@
   height:25px;
 }
 .grid{
-  margin:100px auto;
+  margin:100px auto 0 auto;
 }
 
 .button{
@@ -11,9 +11,10 @@
   width:300px;
   height:40px;
   padding: 0px;
-  margin:30px 30px;
+  margin:0px 30px;
   color:white;
   font-size: 24px;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 #btn_res{
@@ -24,4 +25,16 @@
 }
 #btn_soft_res{
   background: orange;
+}
+h1{
+  font-family: 'Ubuntu', sans-serif;
+}
+li{
+  font-family: 'Ubuntu', sans-serif;
+  width:550px;
+  text-align: left;
+}
+ul{
+  width:600px;
+  margin:0 auto;
 }
